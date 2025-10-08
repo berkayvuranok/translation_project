@@ -1,0 +1,37 @@
+{
+  "@@locale": "en",
+  "login": "Login",
+  "username": "Username",
+  "password": "Password",
+  "dontHaveAnAccount": "Don't have an account? ",
+  "signUp": "Sign Up",
+  "alreadyHaveAnAccount": "Already have an account? ",
+  "welcome": "Welcome, {username}",
+  "readyForTranslationGame": "Are you ready for the Translation Game?",
+  "startGame": "Start Game",
+  "logout": "Logout",
+  "translateAndWin": "Translate & Win",
+  "score": "Score: {score}",
+  "whatIsTheTurkishMeaning": "What is the Turkish meaning of this word?",
+  "correctAnswer": "Correct! +10 Points",
+  "wrongAnswer": "Wrong Answer!",
+  "errorOccurred": "An error occurred.",
+  "lightTheme": "Light Theme",
+  "darkTheme": "Dark Theme",
+  "language": "Language",
+  "confirmPassword": "Confirm Password",
+  "passwordsDoNotMatch": "Passwords do not match!",
+  "signUpSuccess": "Signup successful! Welcome.",
+  "gameOver": "Game Over",
+  "@gameOver": {
+    "description": "Title for the game over screen"
+  },
+  "finalScore": "Final Score",
+  "@finalScore": {
+    "description": "Label for the final score"
+  },
+  "returnToHome": "Return to Home",
+  "@returnToHome": {
+    "description": "Button text to return to the home screen"
+  }
+}

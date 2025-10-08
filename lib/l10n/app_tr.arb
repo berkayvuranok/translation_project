@@ -1,0 +1,37 @@
+{
+  "@@locale": "tr",
+  "login": "Giriş Yap",
+  "username": "Kullanıcı Adı",
+  "password": "Şifre",
+  "dontHaveAnAccount": "Hesabın yok mu? ",
+  "signUp": "Kayıt Ol",
+  "alreadyHaveAnAccount": "Zaten bir hesabın var mı? ",
+  "welcome": "Hoş Geldin, {username}",
+  "readyForTranslationGame": "Çeviri Oyununa Hazır Mısın?",
+  "startGame": "Oyuna Başla",
+  "logout": "Çıkış Yap",
+  "translateAndWin": "Çevir & Kazan",
+  "score": "Puan: {score}",
+  "whatIsTheTurkishMeaning": "Bu kelimenin Türkçe karşılığı nedir?",
+  "correctAnswer": "Doğru! +10 Puan",
+  "wrongAnswer": "Yanlış Cevap!",
+  "errorOccurred": "Bir hata oluştu.",
+  "lightTheme": "Açık Tema",
+  "darkTheme": "Karanlık Tema",
+  "language": "Dil",
+  "confirmPassword": "Şifreyi Onayla",
+  "passwordsDoNotMatch": "Şifreler uyuşmuyor!",
+  "signUpSuccess": "Kayıt başarılı! Hoş geldiniz.",
+  "gameOver": "Oyun Bitti",
+  "@gameOver": {
+    "description": "Oyun sonu ekranı başlığı"
+  },
+  "finalScore": "Nihai Puan",
+  "@finalScore": {
+    "description": "Nihai puan etiketi"
+  },
+  "returnToHome": "Ana Sayfaya Dön",
+  "@returnToHome": {
+    "description": "Ana ekrana dönme butonu metni"
+  }
+}
