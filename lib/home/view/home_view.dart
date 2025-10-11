@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
-    final username = authState is Authenticated ? authState.username : '';
+    final username = authState is Authenticated ? authState.user.email : '';
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(

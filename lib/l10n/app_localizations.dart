@@ -247,6 +247,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Return to Home'**
   String get returnToHome;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @pleaseEnterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email.'**
+  String get pleaseEnterYourEmail;
+
+  /// No description provided for @pleaseEnterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password.'**
+  String get pleaseEnterYourPassword;
+
+  /// No description provided for @dontHaveAnAccountSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Sign Up'**
+  String get dontHaveAnAccountSignUp;
+
+  /// No description provided for @pleaseEnterAValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address.'**
+  String get pleaseEnterAValidEmail;
+
+  /// No description provided for @passwordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters long.'**
+  String get passwordTooShort;
+
+  /// No description provided for @alreadyHaveAnAccountLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Login'**
+  String get alreadyHaveAnAccountLogin;
 }
 
 class _AppLocalizationsDelegate

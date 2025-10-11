@@ -33,5 +33,12 @@
   "returnToHome": "Return to Home",
   "@returnToHome": {
     "description": "Button text to return to the home screen"
-  }
+  },
+  "email": "Email",
+  "pleaseEnterYourEmail": "Please enter your email.",
+  "pleaseEnterYourPassword": "Please enter your password.",
+  "dontHaveAnAccountSignUp": "Don't have an account? Sign Up",
+  "pleaseEnterAValidEmail": "Please enter a valid email address.",
+  "passwordTooShort": "Password must be at least 6 characters long.",
+  "alreadyHaveAnAccountLogin": "Already have an account? Login"
 }

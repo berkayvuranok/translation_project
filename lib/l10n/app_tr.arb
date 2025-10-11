@@ -33,5 +33,12 @@
   "returnToHome": "Ana Sayfaya Dön",
   "@returnToHome": {
     "description": "Ana ekrana dönme butonu metni"
-  }
+  },
+  "email": "E-posta",
+  "pleaseEnterYourEmail": "Lütfen e-posta adresinizi girin.",
+  "pleaseEnterYourPassword": "Lütfen şifrenizi girin.",
+  "dontHaveAnAccountSignUp": "Hesabın yok mu? Kayıt Ol",
+  "pleaseEnterAValidEmail": "Lütfen geçerli bir e-posta adresi girin.",
+  "passwordTooShort": "Şifre en az 6 karakter olmalıdır.",
+  "alreadyHaveAnAccountLogin": "Zaten bir hesabın var mı? Giriş Yap"
 }

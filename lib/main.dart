@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:translation_project/auth/cubit/auth_cubit.dart';
 
 import 'package:translation_project/auth/view/login_view.dart';
+import 'package:translation_project/repository/auth_repository.dart';
 
 import 'package:translation_project/home/view/home_view.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
@@ -18,13 +20,18 @@ void main() async {
   // Uygulama başlamadan önce Flutter binding'lerinin hazır olduğundan emin ol.
   WidgetsFlutterBinding.ensureInitialized();
 
+  // .env dosyasını yükle
+  await dotenv.load(fileName: ".env");
+
   // Repository'leri burada oluşturuyoruz.
   final translationRepository = TranslationRepository();
   final settingsRepository = SettingsRepository();
+  final authRepository = AuthRepository();
 
   runApp(MyApp(
     translationRepository: translationRepository,
     settingsRepository: settingsRepository,
+    authRepository: authRepository,
   ));
 }
 
@@ -32,10 +39,12 @@ class MyApp extends StatelessWidget {
   const MyApp(
       {super.key,
       required this.translationRepository,
-      required this.settingsRepository});
+      required this.settingsRepository,
+      required this.authRepository});
 
   final TranslationRepository translationRepository;
   final SettingsRepository settingsRepository;
+  final AuthRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +54,11 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: translationRepository),
         RepositoryProvider.value(value: settingsRepository),
+        RepositoryProvider.value(value: authRepository),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => AuthCubit()),
+          BlocProvider(create: (context) => AuthCubit(context.read<AuthRepository>())),
           BlocProvider(create: (_) => ThemeCubit(settingsRepository)),
           BlocProvider(create: (_) => LanguageCubit(settingsRepository)),
         ],

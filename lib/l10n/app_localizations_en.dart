@@ -88,4 +88,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get returnToHome => 'Return to Home';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get pleaseEnterYourEmail => 'Please enter your email.';
+
+  @override
+  String get pleaseEnterYourPassword => 'Please enter your password.';
+
+  @override
+  String get dontHaveAnAccountSignUp => 'Don\'t have an account? Sign Up';
+
+  @override
+  String get pleaseEnterAValidEmail => 'Please enter a valid email address.';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 6 characters long.';
+
+  @override
+  String get alreadyHaveAnAccountLogin => 'Already have an account? Login';
 }

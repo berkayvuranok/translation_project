@@ -4,7 +4,7 @@ abstract class GameState extends Equatable {
   const GameState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class GameInitial extends GameState {}
@@ -16,26 +16,34 @@ class GameLoaded extends GameState {
   final String correctTranslation;
   final List<String> options;
   final int score;
+  final int remainingTime;
 
   const GameLoaded({
     required this.wordToTranslate,
     required this.correctTranslation,
     required this.options,
     required this.score,
+    required this.remainingTime,
   });
 
   @override
-  List<Object> get props => [wordToTranslate, correctTranslation, options, score];
+  List<Object?> get props =>
+      [wordToTranslate, correctTranslation, options, score, remainingTime];
 }
 
 class GameAnswerChecked extends GameState {
   final bool wasCorrect;
   final int score;
+  final bool timeUp;
 
-  const GameAnswerChecked({required this.wasCorrect, required this.score});
+  const GameAnswerChecked({
+    required this.wasCorrect,
+    required this.score,
+    this.timeUp = false,
+  });
 
   @override
-  List<Object> get props => [wasCorrect, score];
+  List<Object?> get props => [wasCorrect, score, timeUp];
 }
 
 class GameOver extends GameState {
@@ -44,5 +52,14 @@ class GameOver extends GameState {
   const GameOver({required this.finalScore});
 
   @override
-  List<Object> get props => [finalScore];
+  List<Object?> get props => [finalScore];
+}
+
+class GameError extends GameState {
+  final String message;
+
+  const GameError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 }

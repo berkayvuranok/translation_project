@@ -86,4 +86,26 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get returnToHome => 'Ana Sayfaya Dön';
+
+  @override
+  String get email => 'E-posta';
+
+  @override
+  String get pleaseEnterYourEmail => 'Lütfen e-posta adresinizi girin.';
+
+  @override
+  String get pleaseEnterYourPassword => 'Lütfen şifrenizi girin.';
+
+  @override
+  String get dontHaveAnAccountSignUp => 'Hesabın yok mu? Kayıt Ol';
+
+  @override
+  String get pleaseEnterAValidEmail =>
+      'Lütfen geçerli bir e-posta adresi girin.';
+
+  @override
+  String get passwordTooShort => 'Şifre en az 6 karakter olmalıdır.';
+
+  @override
+  String get alreadyHaveAnAccountLogin => 'Zaten bir hesabın var mı? Giriş Yap';
 }

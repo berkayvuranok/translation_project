@@ -1,11 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translation_project/auth/cubit/auth_cubit.dart';
 import 'package:translation_project/auth/view/signup_view.dart';
-import 'package:translation_project/common/widgets/settings_app_bar_actions.dart';
-
-
+import 'package:translation_project/home/view/home_view.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
@@ -14,7 +11,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: const [SettingsAppBarActions()]),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: const LoginView(),
     );
   }
@@ -28,95 +27,77 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _usernameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthCubit>().loginUser(
+            _emailController.text.trim(),
+            _passwordController.text,
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              l10n.login,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 48),
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: l10n.username,
-                border: const OutlineInputBorder(),
-                prefixIcon: const Icon(Icons.person_outline),
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is Authenticated) {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const HomePage()),
+            (route) => false,
+          );
+        } else if (state is AuthError) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
               ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: l10n.password,
-                border: const OutlineInputBorder(),
-                prefixIcon: const Icon(Icons.lock_outline),
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+            );
+        }
+      },
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(l10n.login, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+                const SizedBox(height: 40),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: l10n.email, border: const OutlineInputBorder()),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) => (value?.isEmpty ?? true) ? l10n.pleaseEnterYourEmail : null,
                 ),
-              ),
-              onPressed: () {
-                context.read<AuthCubit>().login(
-                  _usernameController.text,
-                  _passwordController.text,
-                );
-              },
-              child: Text(l10n.login),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  text: l10n.dontHaveAnAccount,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  children: [
-                    TextSpan(
-                      text: l10n.signUp,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => const SignupPage(),
-                            ),
-                          );
-                        },
-                    ),
-                  ],
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: l10n.password, border: const OutlineInputBorder()),
+                  obscureText: true,
+                  validator: (value) => (value?.isEmpty ?? true) ? l10n.pleaseEnterYourPassword : null,
                 ),
-              ),
+                const SizedBox(height: 24),
+                ElevatedButton(onPressed: _submit, style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16)), child: Text(l10n.login)),
+                TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignupPage())), child: Text(l10n.dontHaveAnAccountSignUp))
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
