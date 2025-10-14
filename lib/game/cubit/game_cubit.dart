@@ -102,7 +102,11 @@ class GameCubit extends Cubit<GameState> {
     if (isCorrect) {
       _score += 10;
     }
-    emit(GameAnswerChecked(wasCorrect: isCorrect, score: _score));
+    emit(GameAnswerChecked(
+        wasCorrect: isCorrect,
+        score: _score,
+        correctAnswer: _correctAnswer,
+        selectedAnswer: selectedAnswer));
   }
 
   void _startTimer() {
@@ -126,6 +130,10 @@ class GameCubit extends Cubit<GameState> {
 
   void _timeUp() {
     _timer?.cancel();
-    emit(GameAnswerChecked(wasCorrect: false, score: _score, timeUp: true));
+    emit(GameAnswerChecked(
+        wasCorrect: false,
+        score: _score,
+        timeUp: true,
+        correctAnswer: _correctAnswer));
   }
 }

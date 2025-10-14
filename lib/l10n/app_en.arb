@@ -39,6 +39,12 @@
   "pleaseEnterYourPassword": "Please enter your password.",
   "dontHaveAnAccountSignUp": "Don't have an account? Sign Up",
   "pleaseEnterAValidEmail": "Please enter a valid email address.",
-  "passwordTooShort": "Password must be at least 6 characters long.",
-  "alreadyHaveAnAccountLogin": "Already have an account? Login"
+  "passwordTooShort": "Password must be at least 10 characters long.",
+  "passwordRequiresUppercase": "Password must contain at least one uppercase letter.",
+  "passwordRequiresSpecialCharacter": "Password must contain at least one special character.",
+  "alreadyHaveAnAccountLogin": "Already have an account? Login",
+  "timeIsUp": "Time's Up!",
+  "correct": "Correct!",
+  "incorrect": "Incorrect!",
+  "correctAnswerIs": "The correct answer is"
 }

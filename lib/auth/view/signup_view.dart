@@ -100,8 +100,14 @@ class _SignupViewState extends State<SignupView> {
                     decoration: InputDecoration(labelText: l10n.password, border: const OutlineInputBorder()),
                     obscureText: true,
                     validator: (value) {
-                      if (value == null || value.length < 6) {
-                        return l10n.passwordTooShort;
+                      if (value == null || value.length < 10) {
+                        return l10n.passwordTooShort; // Needs a more specific message in l10n
+                      }
+                      if (!value.contains(RegExp(r'[A-Z]'))) {
+                        return l10n.passwordRequiresUppercase; // Needs to be added to l10n
+                      }
+                      if (!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+                        return l10n.passwordRequiresSpecialCharacter; // Needs to be added to l10n
                       }
                       return null;
                     },

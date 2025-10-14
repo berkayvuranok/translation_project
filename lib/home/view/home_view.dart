@@ -5,6 +5,7 @@ import 'package:translation_project/auth/cubit/auth_cubit.dart';
 import 'package:translation_project/common/widgets/settings_app_bar_actions.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
 import 'package:translation_project/view/game_View.dart';
+import 'package:translation_project/profile/view/profile_view.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -21,6 +22,15 @@ class HomePage extends StatelessWidget {
         title: Text(l10n.welcome(username)),
         actions: [
           const SettingsAppBarActions(),
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profile', // This should be localized
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ProfilePage()),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: l10n.logout,

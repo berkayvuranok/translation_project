@@ -44,21 +44,8 @@ class GameView extends StatelessWidget {
       body: BlocConsumer<GameCubit, GameState>(
         listener: (context, state) {
           if (state is GameAnswerChecked) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(state.timeUp
-                      // TODO: Bu metni l10n dosyasına ekleyin. (Örn: "timesUp": "Süre Doldu!")
-                      ? "Süre Doldu!"
-                      : (state.wasCorrect
-                          ? l10n.correctAnswer
-                          : l10n.wrongAnswer)),
-                  backgroundColor: state.wasCorrect ? Colors.green : Colors.red,
-                ),
-              );
             // Kısa bir bekleme sonrası yeni soruya geç
-            Future.delayed(const Duration(seconds: 1), () {
+            Future.delayed(const Duration(seconds: 2), () {
               context.read<GameCubit>().nextQuestion();
             });
           } else if (state is GameOver) {
@@ -79,11 +66,13 @@ class GameView extends StatelessWidget {
           if (state is GameLoaded) {
             return _buildGameUI(context, state);
           }
-          // GameAnswerChecked durumunda UI donar, listener yeni soruyu tetikler
           if (state is GameAnswerChecked) {
-            // Bir önceki GameLoaded state'ini bulup göstermeye devam edebiliriz
-            // ama şimdilik basit tutalım ve sadece yükleniyor gösterelim.
-            return const Center(child: CircularProgressIndicator());
+            return AnswerFeedbackView(
+              wasCorrect: state.wasCorrect,
+              timeUp: state.timeUp,
+              correctAnswer: state.correctAnswer,
+              selectedAnswer: state.selectedAnswer,
+            );
           }
           if (state is GameError) {
             return Center(
@@ -169,6 +158,49 @@ class GameView extends StatelessWidget {
               );
             },
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class AnswerFeedbackView extends StatelessWidget {
+  final bool wasCorrect;
+  final bool timeUp;
+  final String correctAnswer;
+  final String? selectedAnswer;
+
+  const AnswerFeedbackView({
+    super.key,
+    required this.wasCorrect,
+    this.timeUp = false,
+    required this.correctAnswer,
+    this.selectedAnswer,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final Color color = wasCorrect ? Colors.green : Colors.red;
+    final IconData icon = wasCorrect ? Icons.check : Icons.close;
+    String message;
+    if (timeUp) {
+      message = l10n.timeIsUp; // Needs to be added to l10n
+    } else {
+      message = wasCorrect ? l10n.correct : l10n.incorrect; // Needs to be added to l10n
+    }
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color, size: 100),
+          const SizedBox(height: 20),
+          Text(message, style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: color)),
+          if (!wasCorrect) ...[
+            const SizedBox(height: 20),
+            Text('${l10n.correctAnswerIs}: $correctAnswer'), // Needs to be added to l10n
+          ],
         ],
       ),
     );

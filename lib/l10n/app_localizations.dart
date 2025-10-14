@@ -281,14 +281,50 @@ abstract class AppLocalizations {
   /// No description provided for @passwordTooShort.
   ///
   /// In en, this message translates to:
-  /// **'Password must be at least 6 characters long.'**
+  /// **'Password must be at least 10 characters long.'**
   String get passwordTooShort;
+
+  /// No description provided for @passwordRequiresUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one uppercase letter.'**
+  String get passwordRequiresUppercase;
+
+  /// No description provided for @passwordRequiresSpecialCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one special character.'**
+  String get passwordRequiresSpecialCharacter;
 
   /// No description provided for @alreadyHaveAnAccountLogin.
   ///
   /// In en, this message translates to:
   /// **'Already have an account? Login'**
   String get alreadyHaveAnAccountLogin;
+
+  /// No description provided for @timeIsUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time\'s Up!'**
+  String get timeIsUp;
+
+  /// No description provided for @correct.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get correct;
+
+  /// No description provided for @incorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect!'**
+  String get incorrect;
+
+  /// No description provided for @correctAnswerIs.
+  ///
+  /// In en, this message translates to:
+  /// **'The correct answer is'**
+  String get correctAnswerIs;
 }
 
 class _AppLocalizationsDelegate

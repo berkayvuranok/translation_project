@@ -105,8 +105,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseEnterAValidEmail => 'Please enter a valid email address.';
 
   @override
-  String get passwordTooShort => 'Password must be at least 6 characters long.';
+  String get passwordTooShort =>
+      'Password must be at least 10 characters long.';
+
+  @override
+  String get passwordRequiresUppercase =>
+      'Password must contain at least one uppercase letter.';
+
+  @override
+  String get passwordRequiresSpecialCharacter =>
+      'Password must contain at least one special character.';
 
   @override
   String get alreadyHaveAnAccountLogin => 'Already have an account? Login';
+
+  @override
+  String get timeIsUp => 'Time\'s Up!';
+
+  @override
+  String get correct => 'Correct!';
+
+  @override
+  String get incorrect => 'Incorrect!';
+
+  @override
+  String get correctAnswerIs => 'The correct answer is';
 }

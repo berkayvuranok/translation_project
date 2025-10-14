@@ -40,7 +40,10 @@ class AuthRepository {
     );
   }
 
-  Future<void> updateUserHighScore({required String email, required int score}) async {
+  Future<void> updateUserHighScore({
+    required String email,
+    required int score,
+  }) async {
     final users = await _getUsers();
     final userIndex = users.indexWhere((user) => user.email == email);
     if (userIndex != -1) {
@@ -54,8 +57,18 @@ class AuthRepository {
 
   Future<int> getUserHighScore({required String email}) async {
     final users = await _getUsers();
-    final user = users.firstWhere((user) => user.email == email,
-        orElse: () => throw Exception('Kullanıcı bulunamadı.'));
+    final user = users.firstWhere(
+      (user) => user.email == email,
+      orElse: () => throw Exception('Kullanıcı bulunamadı.'),
+    );
     return user.highScore;
+  }
+
+  Future<User> getUserByEmail({required String email}) async {
+    final users = await _getUsers();
+    return users.firstWhere(
+      (user) => user.email == email,
+      orElse: () => throw Exception('Kullanıcı bulunamadı.'),
+    );
   }
 }

@@ -104,8 +104,28 @@ class AppLocalizationsTr extends AppLocalizations {
       'Lütfen geçerli bir e-posta adresi girin.';
 
   @override
-  String get passwordTooShort => 'Şifre en az 6 karakter olmalıdır.';
+  String get passwordTooShort => 'Şifre en az 10 karakter olmalıdır.';
+
+  @override
+  String get passwordRequiresUppercase =>
+      'Şifre en az bir büyük harf içermelidir.';
+
+  @override
+  String get passwordRequiresSpecialCharacter =>
+      'Şifre en az bir özel karakter içermelidir.';
 
   @override
   String get alreadyHaveAnAccountLogin => 'Zaten bir hesabın var mı? Giriş Yap';
+
+  @override
+  String get timeIsUp => 'Süre Doldu!';
+
+  @override
+  String get correct => 'Doğru!';
+
+  @override
+  String get incorrect => 'Yanlış!';
+
+  @override
+  String get correctAnswerIs => 'Doğru cevap';
 }

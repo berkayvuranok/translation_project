@@ -35,15 +35,20 @@ class GameAnswerChecked extends GameState {
   final bool wasCorrect;
   final int score;
   final bool timeUp;
+  final String correctAnswer;
+  final String? selectedAnswer;
 
   const GameAnswerChecked({
     required this.wasCorrect,
     required this.score,
+    required this.correctAnswer,
+    this.selectedAnswer,
     this.timeUp = false,
   });
 
   @override
-  List<Object?> get props => [wasCorrect, score, timeUp];
+  List<Object?> get props =>
+      [wasCorrect, score, timeUp, correctAnswer, selectedAnswer];
 }
 
 class GameOver extends GameState {
