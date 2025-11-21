@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       create: (context) => ProfileCubit(context.read<AuthRepository>())..getUser(userEmail),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Profile'),
+          title: const Text('Profil'),
         ),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
@@ -30,14 +30,16 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Text('Email: ${state.user.email}', style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 16),
-                    Text('High Score: ${state.user.highScore}', style: Theme.of(context).textTheme.titleLarge),
+                    Text('Puan: ${state.user.score}', style: Theme.of(context).textTheme.titleLarge),
+                    const SizedBox(height: 8),
+                    Text('Rütbe: ${state.user.rank}', style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ),
               );
             } else if (state is ProfileError) {
               return Center(child: Text(state.message));
             } else {
-              return const Center(child: Text('No user data'));
+              return const Center(child: Text('Kullanıcı verisi bulunamadı'));
             }
           },
         ),

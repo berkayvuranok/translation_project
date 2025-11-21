@@ -12,7 +12,7 @@ part 'game_state.dart';
 class GameCubit extends Cubit<GameState> {
   final TranslationRepository _translationRepository;
   final AuthRepository _authRepository;
-  final String _currentUserEmail;
+  final String? _currentUserEmail;
   int _score = 0;
   int _questionCount = 0;
   static const int _totalQuestions = 20;
@@ -51,8 +51,10 @@ class GameCubit extends Cubit<GameState> {
   Future<void> nextQuestion() async {
     _timer?.cancel();
     if (_questionCount >= _wordsForCurrentGame.length) {
-      await _authRepository.updateUserHighScore(
-          email: _currentUserEmail, score: _score);
+      if (_currentUserEmail != null) {
+        await _authRepository.updateUserScore(
+            email: _currentUserEmail, score: _score);
+      }
       emit(GameOver(finalScore: _score));
       return;
     }

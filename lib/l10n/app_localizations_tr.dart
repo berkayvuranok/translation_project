@@ -128,4 +128,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get correctAnswerIs => 'Doğru cevap';
+
+  @override
+  String get translationGame => 'Çeviri Oyunu';
+
+  @override
+  String get loginSignUp => 'Giriş Yap / Kayıt Ol';
+
+  @override
+  String get playAsGuest => 'Misafir Olarak Oyna';
 }

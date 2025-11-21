@@ -46,5 +46,8 @@
   "timeIsUp": "Süre Doldu!",
   "correct": "Doğru!",
   "incorrect": "Yanlış!",
-  "correctAnswerIs": "Doğru cevap"
+  "correctAnswerIs": "Doğru cevap",
+  "translationGame": "Çeviri Oyunu",
+  "loginSignUp": "Giriş Yap / Kayıt Ol",
+  "playAsGuest": "Misafir Olarak Oyna"
 }

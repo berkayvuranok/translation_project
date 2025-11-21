@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
+import 'package:translation_project/models/user_model.dart';
 import 'package:translation_project/repository/auth_repository.dart';
 import 'package:translation_project/view/game_view.dart';
 
@@ -15,14 +16,14 @@ class GameOverPage extends StatefulWidget {
 }
 
 class _GameOverPageState extends State<GameOverPage> {
-  late Future<int> _highScoreFuture;
+  late Future<User> _userFuture;
 
   @override
   void initState() {
     super.initState();
-    // Repository'yi context'ten okuyup yüksek skoru yüklüyoruz.
-    _highScoreFuture =
-        context.read<AuthRepository>().getUserHighScore(email: widget.userEmail);
+    // Repository'yi context'ten okuyup kullanıcı verisini yüklüyoruz.
+    _userFuture =
+        context.read<AuthRepository>().getUserByEmail(email: widget.userEmail);
   }
 
   @override
@@ -51,23 +52,33 @@ class _GameOverPageState extends State<GameOverPage> {
                   ),
             ),
             const SizedBox(height: 20),
-            FutureBuilder<int>(
-              future: _highScoreFuture,
+            FutureBuilder<User>(
+              future: _userFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SizedBox(
                       height: 24, child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
-                  // TODO: Bu metni l10n dosyasına ekleyin. (Örn: "highScoreCouldNotBeLoaded": "Yüksek skor yüklenemedi.")
-                  return Text('Yüksek skor yüklenemedi.',
+                  return Text('Kullanıcı verisi yüklenemedi.',
                       style: TextStyle(color: Colors.red));
                 }
-                final highScore = snapshot.data ?? 0;
-                // TODO: Bu metni l10n dosyasına ekleyin. (Örn: "highScore": "En Yüksek Skor: {score}")
-                return Text(
-                  'En Yüksek Skor: $highScore',
-                  style: Theme.of(context).textTheme.titleLarge,
+                final user = snapshot.data;
+                if (user == null) {
+                  return const Text('Kullanıcı bulunamadı.');
+                }
+                return Column(
+                  children: [
+                    Text(
+                      'Toplam Puan: ${user.score}',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Rütbe: ${user.rank}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
                 );
               },
             ),

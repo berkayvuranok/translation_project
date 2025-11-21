@@ -130,4 +130,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get correctAnswerIs => 'The correct answer is';
+
+  @override
+  String get translationGame => 'Translation Game';
+
+  @override
+  String get loginSignUp => 'Login / Sign Up';
+
+  @override
+  String get playAsGuest => 'Play as Guest';
 }

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translation_project/game/cubit/game_cubit.dart';
 import 'package:translation_project/repository/auth_repository.dart';
 import 'package:translation_project/auth/cubit/auth_cubit.dart';
-import 'package:translation_project/repository/settings_repository.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
 import 'package:translation_project/view/game_over_view.dart';
+import 'package:translation_project/view/guest_game_over_view.dart';
 import 'package:translation_project/repository/translation_repository.dart';
 
 
@@ -16,15 +16,13 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
-    if (authState is! Authenticated) {
-      // This should not happen, but it's a safeguard.
-      return const Scaffold(body: Center(child: Text('User not authenticated!')));
-    }
+    final userEmail = (authState is Authenticated) ? authState.user.email : null;
+
     return BlocProvider(
       create: (context) => GameCubit(
         context.read<TranslationRepository>(),
         context.read<AuthRepository>(),
-        authState.user.email,
+        userEmail,
       )..startGame(),
       child: const GameView(),
     );
@@ -46,17 +44,30 @@ class GameView extends StatelessWidget {
           if (state is GameAnswerChecked) {
             // Kısa bir bekleme sonrası yeni soruya geç
             Future.delayed(const Duration(seconds: 2), () {
-              context.read<GameCubit>().nextQuestion();
+              if (context.mounted) {
+                context.read<GameCubit>().nextQuestion();
+              }
             });
           } else if (state is GameOver) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => GameOverPage(
-                  score: state.finalScore,
-                  userEmail: (context.read<AuthCubit>().state as Authenticated).user.email,
-                ),
-              ),
-            );
+            if (context.mounted) {
+              final authState = context.read<AuthCubit>().state;
+              if (authState is Authenticated) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => GameOverPage(
+                      score: state.finalScore,
+                      userEmail: authState.user.email,
+                    ),
+                  ),
+                );
+              } else {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => GuestGameOverPage(score: state.finalScore),
+                  ),
+                );
+              }
+            }
           }
         },
         builder: (context, state) {

@@ -46,5 +46,8 @@
   "timeIsUp": "Time's Up!",
   "correct": "Correct!",
   "incorrect": "Incorrect!",
-  "correctAnswerIs": "The correct answer is"
+  "correctAnswerIs": "The correct answer is",
+  "translationGame": "Translation Game",
+  "loginSignUp": "Login / Sign Up",
+  "playAsGuest": "Play as Guest"
 }

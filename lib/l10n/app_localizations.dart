@@ -325,6 +325,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The correct answer is'**
   String get correctAnswerIs;
+
+  /// No description provided for @translationGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation Game'**
+  String get translationGame;
+
+  /// No description provided for @loginSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Login / Sign Up'**
+  String get loginSignUp;
+
+  /// No description provided for @playAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Play as Guest'**
+  String get playAsGuest;
 }
 
 class _AppLocalizationsDelegate

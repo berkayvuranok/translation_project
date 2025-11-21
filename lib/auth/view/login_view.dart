@@ -4,6 +4,8 @@ import 'package:translation_project/auth/cubit/auth_cubit.dart';
 import 'package:translation_project/auth/view/signup_view.dart';
 import 'package:translation_project/home/view/home_view.dart';
 import 'package:translation_project/l10n/app_localizations.dart';
+import 'package:translation_project/language/cubit/language_cubit.dart';
+import 'package:translation_project/theme/cubit/theme_cubit.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -12,7 +14,41 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(AppLocalizations.of(context)!.login),
+        actions: [
+          // Dil değiştirme düğmesi
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () {
+              final currentLocale = context.read<LanguageCubit>().state;
+              if (currentLocale.languageCode == 'tr') {
+                context.read<LanguageCubit>().changeLanguage(const Locale('en'));
+              } else {
+                context.read<LanguageCubit>().changeLanguage(const Locale('tr'));
+              }
+            },
+          ),
+          // Tema değiştirme düğmesi
+          IconButton(
+            icon: BlocBuilder<ThemeCubit, ThemeMode>(
+              builder: (context, state) {
+                // Sistem temasını da hesaba katmak için platform parlaklığını kontrol edebiliriz.
+                final isDarkMode = state == ThemeMode.dark ||
+                    (state == ThemeMode.system &&
+                        Theme.of(context).brightness == Brightness.dark);
+                return Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode);
+              },
+            ),
+            onPressed: () {
+              final cubit = context.read<ThemeCubit>();
+              // Mevcut temanın ne olduğunu daha güvenilir bir şekilde kontrol edelim.
+              final isDarkMode = cubit.state == ThemeMode.dark ||
+                  (cubit.state == ThemeMode.system &&
+                      Theme.of(context).brightness == Brightness.dark);
+              cubit.setTheme(isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            },
+          ),
+        ],
       ),
       body: const LoginView(),
     );
